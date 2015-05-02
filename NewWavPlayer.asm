@@ -5,12 +5,12 @@ Section .data; initialized data
 				SND_ASYNC   	dd 0x0020009
 				SND_LOOP    	dd 000000000
 				
-				WINMMdllstr		db "WINMM.dll",0
+				WINMMdllstr	db "WINMM.dll",0
 				WINMMdllAddr	dd 000000000
 				PlaySoundSTR 	db "PlaySoundA",0
 				WINMMPlaySoundA dd 000000000
 
-				command 		db "pause",0 
+				command 	db "pause",0 
 				
 				
 Section .bss ; Reserved Memory
@@ -19,7 +19,7 @@ Section .text ; .code section/ All instructions go here;
 
 global _main
 
-	@GetFunctionAddress:
+@GetFunctionAddress:  ;function used to get utilize get procaddress
 	push ebp
 	mov  ebp, esp
 	push eax
@@ -31,22 +31,22 @@ global _main
 	retn
 
 
-	_main:
-	@LoadDll:
+_main:
+@LoadDll:
 	push dword WINMMdllstr
 	call _LoadLibraryA@4 ; Cleans itself up!
 	mov dword [WINMMdllAddr], eax
 	
-	@GetAllFunctAddress:
+@GetAllFunctAddress:
 	mov eax, PlaySoundSTR
 	call @GetFunctionAddress
-	mov dword [WINMMPlaySoundA], eax
-	;Retn here from function!
+	mov dword [WINMMPlaySoundA], eax ;Retn here from GetFunctionAddress!
+	
 	
 	push dword [SND_ASYNC]
 	push dword [SND_LOOP]
 	push PTRtoKeyGenWav
-	call dword [WINMMPlaySoundA]
+	call dword [WINMMPlaySoundA]  ; Play music!
 
 	push dword command
 	call dword _system
