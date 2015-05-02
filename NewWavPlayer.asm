@@ -1,12 +1,12 @@
 extern _exit, _LoadLibraryA@4, _GetProcAddress@8, _system
 
 Section .data; initialized data
-				PTRtoKeyGenWav 	db ".\KeyGenWav.wav",0
+				PTRtoKeyGenWav 	db ".\KeyGenWav.wav",0 ; The name.wav of your file.
 				SND_ASYNC   	dd 0x0020009
 				SND_LOOP    	dd 000000000
 				
 				WINMMdllstr	db "WINMM.dll",0
-				WINMMdllAddr	dd 000000000
+				WINMMdllAddr	dd 000000000 
 				PlaySoundSTR 	db "PlaySoundA",0
 				WINMMPlaySoundA dd 000000000
 
