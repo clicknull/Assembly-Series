@@ -74,7 +74,7 @@ void PrintShellPayload(bool debug){ // In general this function still requires s
         printf("and eax, FFFF \n");
         printf("rol eax, 0x10 \n"); // this moves ax to the first 4 bits of EAX . like so 0000FFFF to FFFF0000;
             if( i == LengthOfShellCode){
-                    printf("push eax \n");
+        //            printf("push eax \n"); // 
                     Warning();
                     break;} // This might not be needed
 
