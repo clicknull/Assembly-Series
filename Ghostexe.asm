@@ -1,6 +1,6 @@
 ;Author - Krash
 ;GhostExe
-;Please fill out params 
+;Please fill out params ; Your program will otherwise fail...
 ;GetString , Counter , Ipaddrstr , recv_byte_amount
 ;
 
