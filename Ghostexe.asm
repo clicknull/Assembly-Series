@@ -121,7 +121,7 @@ _main: ; int main (){}
 	
 	
 	@Prepare_For_Start:
-	push recv_byte_amount		;Please specify the bi
+	push dword [recv_byte_amount]		;Please specify the bi
 	call _malloc
 	mov [mallocptr], eax
 	
@@ -178,7 +178,7 @@ _main: ; int main (){}
 
 	;recv()006C4140 ; We have the image and response at the proper loacation
 	push 0
-	push recv_byte_amount ; Bytes we want to recv
+	push dword [recv_byte_amount] ; Bytes we want to recv
 	push dword [mallocptr]
 	nop
 	nop
@@ -193,13 +193,13 @@ _main: ; int main (){}
 	mov dword [recvammount], eax ; save the recv ammount ; We will need to move this to another tap in memory
 
 	
-	push recv_byte_amount
+	push dword [recv_byte_amount]
 	call _malloc
 	mov dword [jmallocptr] , eax 
 	
 	mov esi, dword [recvammount]
 	mov edi, dword [jmallocptr]
-	mov ecx, Counter ; set the counter.
+	mov ecx, [Counter] ; set the counter.
 	
 	@mov_bytes_to_jmallocptr:
 	;MOVS BYTE ES:[EDI], PTR DS:[ESI]
